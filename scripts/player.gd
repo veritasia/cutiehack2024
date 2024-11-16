@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var axis = Vector2.ZERO
 
 
+#need to adjust to bounce back
 func _physics_process(delta):
 	var input_vector = Input.get_vector("moveLeft", "moveRight", "moveUp", "moveDown")
 	if input_vector == Vector2.ZERO:
@@ -15,6 +16,8 @@ func _physics_process(delta):
 	else:
 		apply_movement(input_vector * ACCELERATION * delta)
 	move_and_slide()
+	
+
 
 func apply_movement(amount) -> void:
 	velocity += amount
