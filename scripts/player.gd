@@ -4,12 +4,14 @@ extends CharacterBody2D
 @export var MAX_SPEED = 300
 @export var ACCELERATION = 1500
 @export var FRICTION = 1200
-@export var BULLET_SPEED = 999
+@export var BULLET_SPEED = 1000
+@export var FIRE_RATE = 0.2
 
 @onready var axis = Vector2.ZERO
 
 var bullet = preload("res://scenes/bullet_player.tscn")
 var laser = preload("res://scenes/laser_player.tscn")
+var can_fire = true
 
 func _physics_process(delta):
 	var input_vector = Input.get_vector("moveLeft", "moveRight", "moveUp", "moveDown")
@@ -19,8 +21,11 @@ func _physics_process(delta):
 		apply_friction(FRICTION * delta)
 	else:
 		apply_movement(input_vector * ACCELERATION * delta)
-	if fire:
+	if fire and can_fire:
 		fire_bullet()
+		can_fire = false
+		await get_tree().create_timer(FIRE_RATE).timeout
+		can_fire = true
 	if fire_special:
 		fire_laser()
 	move_and_slide()
@@ -39,7 +44,8 @@ func fire_bullet() -> void:
 	var bullet_instance = bullet.instantiate()
 	bullet_instance.position = get_global_position()
 	bullet_instance.rotation = rotation_degrees
-	bullet_instance.apply_impulse(Vector2(), Vector2(BULLET_SPEED, 0).rotated(rotation))
+	bullet_instance.apply_impulse(Vector2(-1 * BULLET_SPEED, 0).rotated(rotation))
+	# bullet_instance.velocity += BULLET_SPEED
 	get_tree().get_root().add_child(bullet_instance)
 
 func fire_laser() -> void:
