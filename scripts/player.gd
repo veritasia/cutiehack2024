@@ -6,12 +6,14 @@ extends CharacterBody2D
 @export var FRICTION = 1200
 @export var BULLET_SPEED = 1000
 @export var FIRE_RATE = 0.2
+@export var LASER_RATE = 1
 
 @onready var axis = Vector2.ZERO
 
 var bullet = preload("res://scenes/bullet_player.tscn")
 var laser = preload("res://scenes/laser_player.tscn")
 var can_fire = true
+var can_fire_laser = true
 
 func _physics_process(delta):
 	var input_vector = Input.get_vector("moveLeft", "moveRight", "moveUp", "moveDown")
@@ -26,8 +28,11 @@ func _physics_process(delta):
 		can_fire = false
 		await get_tree().create_timer(FIRE_RATE).timeout
 		can_fire = true
-	if fire_special:
+	if fire_special and can_fire_laser:
 		fire_laser()
+		can_fire_laser = false
+		await get_tree().create_timer(LASER_RATE).timeout
+		can_fire_laser = true
 	move_and_slide()
 
 func apply_movement(amount) -> void:

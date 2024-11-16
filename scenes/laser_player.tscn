@@ -6,6 +6,7 @@
 size = Vector2(44, 6)
 
 [node name="LaserPlayer" type="RigidBody2D"]
+collision_layer = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1.19209e-07)
