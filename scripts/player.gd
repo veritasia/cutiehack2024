@@ -26,11 +26,17 @@ var rng = RandomNumberGenerator.new()
 func _physics_process(delta):
 	var input_vector = Input.get_vector("moveLeft", "moveRight", "moveUp", "moveDown")
 	var fire = Input.is_action_pressed("fireLeft")
+	if !is_alive and Input.is_action_pressed("revive"):
+		revive()
 	var fire_special = Input.is_action_pressed("fireRight")
 	if input_vector == Vector2.ZERO:
 		apply_friction(FRICTION * delta)
 	else:
-		apply_movement(input_vector * ACCELERATION * delta)
+		if is_alive:
+			apply_movement(input_vector * ACCELERATION * delta)
+		
+	if !is_alive:
+		return
 	if fire and can_fire:
 		fire_bullet()
 		can_fire = false
@@ -52,6 +58,10 @@ func apply_friction(amount) -> void:
 		velocity -= velocity.normalized() * amount
 	else:
 		velocity = Vector2.ZERO
+		
+func revive() -> void:
+	currentHealth = MAX_HEALTH
+	is_alive = true
 
 func fire_bullet() -> void:
 	var bullet_instance
@@ -77,10 +87,14 @@ func decrement_health() -> void:
 	if currentHealth <= 0:
 		#Endgame
 		print("you died :()")
+		is_alive = false
 		pass
 
 func _process(delta: float) -> void:
-	look_at(get_global_mouse_position())
+	if is_alive:
+		look_at(get_global_mouse_position())
+	
+		
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	#print(area)
 	#print_debug("enemy: ", get_tree().get_nodes_in_group("enemy"))
