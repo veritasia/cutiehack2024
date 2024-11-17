@@ -60,6 +60,8 @@ func fire_bullet() -> void:
 		bullet_instance.apply_impulse(Vector2(-1 * BULLET_SPEED, 0).rotated(rotation + deg_to_rad(180)))
 		# bullet_instance.velocity += BULLET_SPEED
 		get_tree().get_root().add_child(bullet_instance)
+		$AudioStreamPlayer2D.stream = load("res://assets/sfx/pew.mp3")
+		$AudioStreamPlayer2D.play()
 
 func fire_laser() -> void:
 	var laser_instance = laser.instantiate()
@@ -68,6 +70,8 @@ func fire_laser() -> void:
 	#laser_instance.rotation = rotation_degrees
 	laser_instance.apply_impulse(Vector2(0, 0).rotated(rotation + deg_to_rad(180)))
 	get_tree().get_root().add_child(laser_instance)
+	$AudioStreamPlayer2D.stream = load("res://assets/sfx/laser.mp3")
+	$AudioStreamPlayer2D.play()
 
 func _process(delta: float) -> void:
 	look_at(get_global_mouse_position())
