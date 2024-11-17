@@ -14,4 +14,7 @@ func _process(delta: float) -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	print(body)
+	print("Anyone here?")
+	if body.is_in_group("player_projectile"):
+		print("I AM A PROJECTILE ;3")
+		queue_free()
