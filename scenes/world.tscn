@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dvfmdwk3gw3m0" path="res://scenes/powerup.tscn" id="2_4oxdm"]
 
 [node name="World" type="Node2D" groups=["powerups"]]
+[node name="Player" parent="." instance=ExtResource("1_5q8x5")]
+position = Vector2(451, 333)
 
 [node name="Node2D" type="Node2D" parent="."]
 
