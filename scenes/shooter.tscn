@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkhtyxgsvh7k2"]
+[gd_scene load_steps=3 format=3 uid="uid://nsdkg4u1iayf"]
 
 [ext_resource type="Script" path="res://shooter.gd" id="1_mrdmp"]
 [ext_resource type="Texture2D" uid="uid://dyjbmisxm73db" path="res://assets/bulletPlaceholder.png" id="2_bv4nm"]

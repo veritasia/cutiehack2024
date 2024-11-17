@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://besxxj7a52o4t"]
 
 [ext_resource type="PackedScene" uid="uid://bvl0ljje2mbtr" path="res://scenes/player.tscn" id="1_5q8x5"]
-[ext_resource type="TileSet" uid="uid://cp633hfctwusk" path="res://scenes/tileset.tres" id="1_7w0yl"]
+[ext_resource type="TileSet" uid="uid://c2ckiscyxq7ua" path="res://scenes/tileset.tres" id="1_7w0yl"]
 [ext_resource type="PackedScene" uid="uid://duxemhr5w0bpg" path="res://scenes/powerup.tscn" id="2_4oxdm"]
 [ext_resource type="AudioStream" uid="uid://dkbb0mmnykqqp" path="res://assets/music/CitriCat.mp3" id="4_wpvce"]
 
