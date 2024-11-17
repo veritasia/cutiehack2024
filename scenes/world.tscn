@@ -9,6 +9,7 @@ position = Vector2(451, 333)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(448, 312)
+collision_layer = 3
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(-48, -58, -15, -98, 58, -95, 114, -34, 114, 87, 17, 117, -20, 146, -49, 108, 69, 43, 56, -33, -6, -47)

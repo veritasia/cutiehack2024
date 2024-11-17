@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkhtyxgsvh7k2"]
+
+[ext_resource type="Script" path="res://shooter.gd" id="1_mrdmp"]
+[ext_resource type="Texture2D" uid="uid://dyjbmisxm73db" path="res://assets/bulletPlaceholder.png" id="2_bv4nm"]
+
+[node name="Shooter" type="Node2D"]
+script = ExtResource("1_mrdmp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_bv4nm")
