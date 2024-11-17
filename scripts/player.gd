@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var FIRE_RATE = 1
 @export var LASER_RATE = 5
 @export var NUM_BULLETS = 1
+@export var MAX_HEALTH = 5
 
 @onready var axis = Vector2.ZERO
 
@@ -15,6 +16,8 @@ var bullet = preload("res://scenes/bullet_player.tscn")
 var laser = preload("res://scenes/laser_player.tscn")
 var can_fire = true
 var can_fire_laser = true
+var is_alive = true
+var currentHealth = MAX_HEALTH
 #used for generating a random powerup
 var rng = RandomNumberGenerator.new()
 
@@ -68,11 +71,21 @@ func fire_laser() -> void:
 	#laser_instance.rotation = rotation_degrees
 	laser_instance.apply_impulse(Vector2(0, 0).rotated(rotation + deg_to_rad(180)))
 	get_tree().get_root().add_child(laser_instance)
+	
+func decrement_health() -> void:
+	currentHealth -= 1
+	if currentHealth <= 0:
+		#Endgame
+		print("you died :()")
+		pass
 
 func _process(delta: float) -> void:
 	look_at(get_global_mouse_position())
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if is_in_group("powerups"):
+	#print(area)
+	#print_debug("enemy: ", get_tree().get_nodes_in_group("enemy"))
+	#print_debug("powerup: ", get_tree().get_nodes_in_group("powerups"))
+	if area.is_in_group("powerups"):
 		var powerUpNumber = round(rng.randf_range(0, 2))
 		print(powerUpNumber)
 		
@@ -99,4 +112,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 			NUM_BULLETS+=1
 			await get_tree().create_timer(5.0).timeout
 			NUM_BULLETS = temp
-			
+	elif area.is_in_group("enemy"):
+		decrement_health()
+		
