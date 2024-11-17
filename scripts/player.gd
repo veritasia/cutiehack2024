@@ -87,6 +87,8 @@ func fire_laser() -> void:
 	$AudioStreamPlayer2D.play()
 	
 func decrement_health() -> void:
+	$AudioStreamPlayer2D.stream = load("res://assets/sfx/woof.mp3")
+	$AudioStreamPlayer2D.play()
 	currentHealth -= 1
 	if currentHealth <= 0:
 		#Endgame

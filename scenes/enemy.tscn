@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3ovt3pkhu3wt"]
+[gd_scene load_steps=5 format=3 uid="uid://csbaw50m7d1ul"]
 
 [ext_resource type="Script" path="res://scripts/baseEnemy.gd" id="1_d5vsm"]
 [ext_resource type="Texture2D" uid="uid://bucb22am2n227" path="res://icon.svg" id="2_4vt50"]
@@ -27,6 +27,8 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["enemy"]]
 shape = SubResource("RectangleShape2D_beak7")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
