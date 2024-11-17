@@ -5,8 +5,9 @@ extends CharacterBody2D
 @export var ACCELERATION = 1500
 @export var FRICTION = 1200
 @export var BULLET_SPEED = 1000
-@export var FIRE_RATE = 0.2
-@export var LASER_RATE = 1
+@export var FIRE_RATE = 1
+@export var LASER_RATE = 5
+@export var NUM_BULLETS = 1
 
 @onready var axis = Vector2.ZERO
 
@@ -50,13 +51,15 @@ func apply_friction(amount) -> void:
 		velocity = Vector2.ZERO
 
 func fire_bullet() -> void:
-	var bullet_instance = bullet.instantiate()
-	bullet_instance.transform = transform
-	# bullet_instance.position = get_global_position()
-	# bullet_instance.rotation = rotation_degrees
-	bullet_instance.apply_impulse(Vector2(-1 * BULLET_SPEED, 0).rotated(rotation + deg_to_rad(180)))
-	# bullet_instance.velocity += BULLET_SPEED
-	get_tree().get_root().add_child(bullet_instance)
+	var bullet_instance
+	for i in NUM_BULLETS:
+		bullet_instance = bullet.instantiate()
+		bullet_instance.transform = transform
+		# bullet_instance.position = get_global_position()
+		# bullet_instance.rotation = rotation_degrees
+		bullet_instance.apply_impulse(Vector2(-1 * BULLET_SPEED, 0).rotated(rotation + deg_to_rad(180)))
+		# bullet_instance.velocity += BULLET_SPEED
+		get_tree().get_root().add_child(bullet_instance)
 
 func fire_laser() -> void:
 	var laser_instance = laser.instantiate()
@@ -73,7 +76,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		var powerUpNumber = round(rng.randf_range(0, 2))
 		print(powerUpNumber)
 		
-		powerUpNumber = 0
+		# powerUpNumber = 2
 		
 		if powerUpNumber == 0:
 			print("speed up!")
@@ -83,5 +86,17 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 			MAX_SPEED = temp
 		elif powerUpNumber == 1:
 			print("faster bullets!")
+			var temp = FIRE_RATE
+			var temp2 = LASER_RATE
+			FIRE_RATE = 0.2
+			LASER_RATE = 3
+			await get_tree().create_timer(5.0).timeout
+			FIRE_RATE = temp
+			LASER_RATE = temp2
 		else:
 			print("bullet spread!")
+			var temp = NUM_BULLETS
+			NUM_BULLETS+=1
+			await get_tree().create_timer(5.0).timeout
+			NUM_BULLETS = temp
+			
