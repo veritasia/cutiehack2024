@@ -1,15 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://besxxj7a52o4t"]
+[gd_scene load_steps=3 format=3 uid="uid://cwxnhja15jbw7"]
 
 [ext_resource type="PackedScene" uid="uid://bvl0ljje2mbtr" path="res://scenes/player.tscn" id="1_5q8x5"]
+[ext_resource type="PackedScene" uid="uid://dvfmdwk3gw3m0" path="res://scenes/powerup.tscn" id="2_4oxdm"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" groups=["powerups"]]
 
 [node name="Player" parent="." instance=ExtResource("1_5q8x5")]
 position = Vector2(451, 333)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(448, 312)
-collision_layer = 3
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(3, -3)
 polygon = PackedVector2Array(-48, -58, -15, -98, 58, -95, 114, -34, 114, 87, 17, 117, -20, 146, -49, 108, 69, 43, 56, -33, -6, -47)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(-216, 51)
+rotation = -0.30243
+scale = Vector2(-7.85854, 1.1612)
+polygon = PackedVector2Array(-48, -58, -15, -98, 58, -95, 114, -34, 114, 87, 17, 117, -20, 146, -49, 108, 69, 43, 56, -33, -6, -47)
+
+[node name="Powerup" parent="." instance=ExtResource("2_4oxdm")]
+position = Vector2(399, 339)
+scale = Vector2(-0.0128233, 0.0135446)

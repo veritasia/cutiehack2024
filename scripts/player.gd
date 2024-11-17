@@ -14,7 +14,11 @@ var bullet = preload("res://scenes/bullet_player.tscn")
 var laser = preload("res://scenes/laser_player.tscn")
 var can_fire = true
 var can_fire_laser = true
+#used for generating a random powerup
+var rng = RandomNumberGenerator.new()
 
+
+#need to adjust to bounce back
 func _physics_process(delta):
 	var input_vector = Input.get_vector("moveLeft", "moveRight", "moveUp", "moveDown")
 	var fire = Input.is_action_pressed("fireLeft")
@@ -64,3 +68,20 @@ func fire_laser() -> void:
 
 func _process(delta: float) -> void:
 	look_at(get_global_mouse_position())
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if is_in_group("powerups"):
+		var powerUpNumber = round(rng.randf_range(0, 2))
+		print(powerUpNumber)
+		
+		powerUpNumber = 0
+		
+		if powerUpNumber == 0:
+			print("speed up!")
+			var temp = MAX_SPEED
+			MAX_SPEED = MAX_SPEED * 2
+			await get_tree().create_timer(5.0).timeout
+			MAX_SPEED = temp
+		elif powerUpNumber == 1:
+			print("faster bullets!")
+		else:
+			print("bullet spread!")
